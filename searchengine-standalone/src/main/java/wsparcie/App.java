@@ -21,7 +21,7 @@ public class App
         properties.put("jboss.naming.client.ejb.context", "true");
         properties.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
         properties.put(Context.SECURITY_PRINCIPAL, "akosala");
-        properties.put(Context.SECURITY_CREDENTIALS, "7312Koska");
+        properties.put(Context.SECURITY_CREDENTIALS, "haslo");
         Context context = new InitialContext(properties);
         UsersRepositoryDaoRemote generator =
                 (UsersRepositoryDaoRemote)
