@@ -3,16 +3,21 @@ package searchengine.dao;
 import searchengine.domain.User;
 
 import javax.ejb.Stateless;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Stateless
+
 public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositoryDaoRemote {
 
     private static Map<Integer, Integer> mapStatistic = new HashMap<>();
-
+    @PersistenceContext(name = "pUnit")
+    EntityManager entityManager;
 
     @Override
 
