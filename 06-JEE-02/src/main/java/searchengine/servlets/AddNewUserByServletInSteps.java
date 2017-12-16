@@ -48,7 +48,7 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             }else {
                 user.setGender((Gender) req.getSession().getAttribute(String.valueOf(Gender.WOMEN)));
             }
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/add-user3.jsp");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/statistic.jsp");
             requestDispatcher.forward(req, resp);
             dao.addUser(user);
 
