@@ -22,6 +22,7 @@ public class AddNewUserByServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
+        //zadanie 9 do zrobienia
         if (verification(req, resp)) {
             //UsersRepositoryDaoBean.newUserStatistic(Integer.valueOf(req.getParameter("id")));
         } else {

@@ -14,7 +14,7 @@
     <title>Statystyki</title>
 </head>
 <body>
-LIST SIZE: <c:out value="${listSize}"/>
+LIST SIZE: <c:out value="${listSize}"/>    <%--wyswietlanie--%>
 <table border="1" width="100%">
 
     <tr>
@@ -30,7 +30,7 @@ LIST SIZE: <c:out value="${listSize}"/>
         <tr <c:if test="${user.gender.toString() == 'MEN'}">style="color: blue;"</c:if>>
 <%--if else w domu rozne kolory--%>
 
-                <td><c:out value="${user.id}"/></td>
+            <td><c:out value="${user.id}"/></td>
             <td><c:out value="${user.name}"/></td>
             <td><c:out value="${user.surname}"/></td>
             <td><c:out value="${user.login}"/></td>
