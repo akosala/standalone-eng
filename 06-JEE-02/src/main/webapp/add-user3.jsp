@@ -11,6 +11,6 @@
     Gender:<br>
     <input type="Gender" name="Gender">
 
-    <input type="submit" name ="add-user"value="Next">
+    <input type="submit" name ="add-user"value="zapisz">
 </form>
 
