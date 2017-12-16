@@ -37,8 +37,10 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             return;
         } else if (req.getParameter("step").equals("3")) {
             req.getSession().setAttribute("gender", req.getParameter("gender"));
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/statistic.jsp");
+            requestDispatcher.forward(req, resp);
             User user = new User();
-            user.setId((Integer) req.getSession().getAttribute("id"));
+            user.setId((Integer.parseInt() req.getSession().getAttribute("id")));
             user.setLogin((String) req.getSession().getAttribute("login"));
             user.setName((String) req.getSession().getAttribute("name"));
             user.setSurname((String) req.getSession().getAttribute("surname"));
@@ -48,8 +50,7 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             }else {
                 user.setGender((Gender) req.getSession().getAttribute(String.valueOf(Gender.WOMEN)));
             }
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/statistic.jsp");
-            requestDispatcher.forward(req, resp);
+
             dao.addUser(user);
 
             req.getSession().invalidate();
@@ -59,8 +60,7 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
     }
 
-}/*
-    @Override
+ @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         if (verification(req, resp)) {
@@ -113,7 +113,7 @@ public class AddNewUserByServletInSteps extends HttpServlet {
     }
 
     public void addNewUser(String name, String surname, int age, int id, String login, Gender gender) {
-    if()
+
         User user = new User();
         user.setName(name);
         user.setSurname(surname);
@@ -139,5 +139,3 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
 
 
-
-*/
