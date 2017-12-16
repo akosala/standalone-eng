@@ -1,11 +1,11 @@
 package searchengine.servlets;
 
 import searchengine.dao.UsersRepositoryDao;
-import searchengine.dao.UsersRepositoryDaoBean;
 import searchengine.domain.Gender;
 import searchengine.domain.User;
 
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,23 +14,49 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/AddUser")
-public class AddNewUserByServlet extends HttpServlet {
+@WebServlet("/AddUserInSteps")
+public class AddNewUserByServletInSteps extends HttpServlet {
 
     @EJB
     UsersRepositoryDao dao;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-        //zadanie 9 do zrobienia
-        if (verification(req, resp)) {
-            //UsersRepositoryDaoBean.newUserStatistic(Integer.valueOf(req.getParameter("id")));
-        } else {
-            getUrlParametrs(req, resp);
+        if (req.getParameter("step").equals("1")) {
+            req.getSession().setAttribute("id", req.getParameter("id"));
+            req.getSession().setAttribute("login", req.getParameter("login"));
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/add-user2.jsp");
+            requestDispatcher.forward(req, resp);
+            return;
+        } else if (req.getParameter("step").equals("2")) {
+            req.getSession().setAttribute("name", req.getParameter("name"));
+            req.getSession().setAttribute("surname", req.getParameter("surname"));
+            req.getSession().setAttribute("age", req.getParameter("age"));
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/add-user3.jsp");
+            requestDispatcher.forward(req, resp);
+            return;
+        } else if (req.getParameter("step").equals("3")) {
+            req.getSession().setAttribute("gender", req.getParameter("gender"));
+            User user = new User();
+            user.setId((Integer) req.getSession().getAttribute("id"));
+            user.setLogin((String) req.getSession().getAttribute("login"));
+            user.setName((String) req.getSession().getAttribute("name"));
+            user.setSurname((String) req.getSession().getAttribute("surname"));
+            user.setAge((Integer) req.getSession().getAttribute("age"));
+           if(req.getParameter("gender").equals("MEN")){
+                user.setGender((Gender) req.getSession().getAttribute(String.valueOf(Gender.MEN)));
+            }else {
+                user.setGender((Gender) req.getSession().getAttribute(String.valueOf(Gender.WOMEN)));
+            }
+            dao.addUser(user);
+            req.getSession().invalidate();
+
         }
+
+
     }
 
+}/*
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -84,6 +110,7 @@ public class AddNewUserByServlet extends HttpServlet {
     }
 
     public void addNewUser(String name, String surname, int age, int id, String login, Gender gender) {
+    if()
         User user = new User();
         user.setName(name);
         user.setSurname(surname);
@@ -110,3 +137,4 @@ public class AddNewUserByServlet extends HttpServlet {
 
 
 
+*/
