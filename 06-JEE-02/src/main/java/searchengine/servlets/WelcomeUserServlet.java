@@ -17,7 +17,7 @@ public class WelcomeUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("name", req.getParameter("name"));
         req.getSession().setAttribute("sessionName", req.getParameter("name"));
-        req.setAttribute("salary", req.getParameter("salary"));
+        //req.setAttribute("salary", req.getParameter("salary"));
         req.getSession().setAttribute("sessionSalary", req.getParameter("salary"));
 
 
