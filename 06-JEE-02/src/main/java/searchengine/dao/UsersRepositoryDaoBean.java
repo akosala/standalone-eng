@@ -16,7 +16,7 @@ import java.util.Map;
 public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositoryDaoRemote {
 
     private static Map<Integer, Integer> mapStatistic = new HashMap<>();
-    @PersistenceContext(name = "pUnit")
+//    @PersistenceContext(name = "pUnit")
     EntityManager entityManager;
 
     @Override
