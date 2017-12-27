@@ -22,7 +22,8 @@ public class AddNewUserByServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
+        //  super.doPost(req, resp);
         //zadanie 9 do zrobienia
         if (verification(req, resp)) {
             //UsersRepositoryDaoBean.newUserStatistic(Integer.valueOf(req.getParameter("id")));
@@ -44,7 +45,7 @@ public class AddNewUserByServlet extends HttpServlet {
     }
 
     public boolean verification(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String[] newData = {"id", "name", "surname", "age", "login"};
+        String[] newData = {"id", "name", "surname", "age", "login","gender"};
         PrintWriter writer = resp.getWriter();
         for (int i = 0; i < newData.length; i++) {
             if (req.getParameter(newData[i]) == null) {

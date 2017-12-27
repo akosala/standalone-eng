@@ -9,7 +9,7 @@
 <form action="/AddUserInSteps" method="post">
     <input type="hidden" name="step" value="3">
     Gender:<br>
-    <input type="Gender" name="Gender">
+    <input type="Gender" name="gender">
 
     <input type="submit" name ="add-user"value="zapisz">
 </form>

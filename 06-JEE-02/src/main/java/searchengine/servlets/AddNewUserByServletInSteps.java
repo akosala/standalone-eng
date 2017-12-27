@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import static searchengine.domain.Gender.MEN;
+
 @WebServlet("/AddUserInSteps")
 public class AddNewUserByServletInSteps extends HttpServlet {
 
@@ -21,44 +23,67 @@ public class AddNewUserByServletInSteps extends HttpServlet {
     UsersRepositoryDao dao;
 
     @Override
+
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addUser(req,resp);
+    }
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addUser(req,resp);
+    }
+
+    private void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = new User();
         if (req.getParameter("step").equals("1")) {
             req.getSession().setAttribute("id", req.getParameter("id"));
+
             req.getSession().setAttribute("login", req.getParameter("login"));
+
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/add-user2.jsp");
             requestDispatcher.forward(req, resp);
-            return;
+           return;
         } else if (req.getParameter("step").equals("2")) {
             req.getSession().setAttribute("name", req.getParameter("name"));
+
             req.getSession().setAttribute("surname", req.getParameter("surname"));
+
             req.getSession().setAttribute("age", req.getParameter("age"));
+
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/add-user3.jsp");
             requestDispatcher.forward(req, resp);
             return;
         } else if (req.getParameter("step").equals("3")) {
-            req.getSession().setAttribute("gender", req.getParameter("gender"));
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/statistic.jsp");
-            requestDispatcher.forward(req, resp);
-            User user = new User();
-            user.setId((Integer.parseInt() req.getSession().getAttribute("id")));
+
+    req.getSession().setAttribute("gender", req.getParameter("gender"));
+            user.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
             user.setLogin((String) req.getSession().getAttribute("login"));
             user.setName((String) req.getSession().getAttribute("name"));
             user.setSurname((String) req.getSession().getAttribute("surname"));
-            user.setAge((Integer) req.getSession().getAttribute("age"));
-           if(req.getParameter("gender").equals("MEN")){
-                user.setGender((Gender) req.getSession().getAttribute(String.valueOf(Gender.MEN)));
+            user.setAge(Integer.parseInt((String) req.getSession().getAttribute("age")));
+            user.setGender((Gender) req.getSession().getAttribute(String.valueOf(MEN)));
+/*
+          if(MEN.equals(req.getParameter("gender"))){
+                user.setGender((Gender) req.getSession().getAttribute(String.valueOf(MEN)));
             }else {
                 user.setGender((Gender) req.getSession().getAttribute(String.valueOf(Gender.WOMEN)));
-            }
-
+            }*/
             dao.addUser(user);
+            req.setAttribute("okMessage", "User with ID " + user.getId() + " has been added.");
 
-            req.getSession().invalidate();
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index1.jsp");
+            requestDispatcher.forward(req, resp);
+
+
+//return;
+
+            //req.setAttribute();
+           // req.getSession().invalidate();
 
         }
 
 
-    }
+    }}
+/*
 
  @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -139,3 +164,4 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
 
 
+*/

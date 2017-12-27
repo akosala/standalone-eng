@@ -8,17 +8,17 @@
 
 <form action="/AddUser" method="post">
     ID:<br>
-    <input type="id" name="firstname"><br>
+    <input type="id" name="id"><br>
     Name:<br>
     <input type="Name" name="name"><br>
     Surname:<br>
-    <input type="Surname" name="Surname"><br>
+    <input type="Surname" name="surname"><br>
     Login:<br>
-    <input type="Login" name="Login"><br>
+    <input type="Login" name="login"><br>
     Age:<br>
-    <input type="Age" name="Age"><br>
+    <input type="Age" name="age"><br>
     Gender:<br>
-    <input type="Gender" name="Gender">
+    <input type="Gender" name="gender">
 
     <input type="submit" value="Submit">
 </form>

@@ -12,9 +12,9 @@
     Name:<br>
     <input type="Name" name="name"><br>
     Surname:<br>
-    <input type="Surname" name="Surname"><br>
+    <input type="Surname" name="surname"><br>
     Age:<br>
-    <input type="Age" name="Age"><br>
+    <input type="Age" name="age"><br>
     <input type="submit" name ="add-user"value="Next">
 </form>
 

@@ -32,7 +32,9 @@ protected void doGet (HttpServletRequest req, HttpServletResponse resp) throws S
             req.setAttribute("listSize", list.size());
             req.setAttribute("list", list);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/statistic.jsp");
+        //RequestDispatcher requestDispatcher1 = (RequestDispatcher) resp.getWriter(); //getRequestDispatcher("/statistic.jsp");
             requestDispatcher.forward(req, resp);
+            //requestDispatcher1.include(req,resp);
 
 //        resp.setContentType("text/html;charset=UTF-8");
 //        PrintWriter writer = resp.getWriter();
