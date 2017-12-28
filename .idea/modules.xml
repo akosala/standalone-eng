@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/06-JEE-02/06-JEE-02.iml" filepath="$PROJECT_DIR$/06-JEE-02/06-JEE-02.iml" />
-      <module fileurl="file://$PROJECT_DIR$/06-JEE-02/search-engine.iml" filepath="$PROJECT_DIR$/06-JEE-02/search-engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/06-JEE-ZD1/search-engine.iml" filepath="$PROJECT_DIR$/06-JEE-ZD1/search-engine.iml" />
       <module fileurl="file://$PROJECT_DIR$/standalone-eng.iml" filepath="$PROJECT_DIR$/standalone-eng.iml" />
     </modules>
   </component>
