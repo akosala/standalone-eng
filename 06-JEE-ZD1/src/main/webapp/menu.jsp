@@ -7,8 +7,9 @@
 --%>
 
 <ul>
-    <li><a href="url">Dodaj Userów</a> </li>
-    <li><a href="url">Lista userów</a></li>
+    <li><a href="/add-user.jsp">Dodaj użytkownika(protectet)</a> </li>
+    <li><a href="url">Lista użytkowników</a></li>
+    <li><a href="/add-user1.jsp">Dodaj użytkownika w krokach (protectet)</a> </li>
     <li>AK</li>
 </ul>
 

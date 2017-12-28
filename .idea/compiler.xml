@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="06-JEE-02" target="1.5" />
-      <module name="search-engine" target="1.7" />
+      <module name="search-engine" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

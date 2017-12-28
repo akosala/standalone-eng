@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="war" name="search-engine:war">
-    <output-path>$PROJECT_DIR$/06-JEE-02/target</output-path>
+    <output-path>$PROJECT_DIR$/06-JEE-ZD1/target</output-path>
     <root id="archive" name="search-engine.war">
       <element id="artifact" artifact-name="search-engine:war exploded" />
     </root>
