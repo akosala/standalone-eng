@@ -51,6 +51,11 @@
             <artifactId>commons-beanutils</artifactId>
             <version>1.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok.test</groupId>
+            <artifactId>test-maven-lombok</artifactId>
+            <version>0.11.2.0</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>search-engine</finalName>

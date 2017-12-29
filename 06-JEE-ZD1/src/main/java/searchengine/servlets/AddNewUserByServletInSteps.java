@@ -60,13 +60,12 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             user.setName((String) req.getSession().getAttribute("name"));
             user.setSurname((String) req.getSession().getAttribute("surname"));
             user.setAge(Integer.parseInt((String) req.getSession().getAttribute("age")));
-            user.setGender((Gender) req.getSession().getAttribute(String.valueOf(MEN)));
-/*
+           // user.setGender((Gender) req.getSession().getAttribute(String.valueOf(MEN)));
           if(MEN.equals(req.getParameter("gender"))){
                 user.setGender((Gender) req.getSession().getAttribute(String.valueOf(MEN)));
             }else {
                 user.setGender((Gender) req.getSession().getAttribute(String.valueOf(Gender.WOMEN)));
-            }*/
+            }
             dao.addUser(user);
             req.setAttribute("okMessage", "User with ID " + user.getId() + " has been added.");
 
