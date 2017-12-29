@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="search-engine:war exploded">
+    <output-path>$PROJECT_DIR$/06-JEE-02/target/search-engine</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="search-engine" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: javax:javaee-api:8.0" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.0" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: javax.resource:connector-api:1.5" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.8-dmr" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/06-JEE-02/target/search-engine/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="search-engine/web/Web" />
+    </root>
+  </artifact>
+</component>
