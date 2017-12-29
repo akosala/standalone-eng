@@ -13,8 +13,11 @@
     <input type="Name" name="name"><br>
     Surname:<br>
     <input type="Surname" name="surname"><br>
-    Age:<br>
-    <input type="Age" name="age"><br>
-    <input type="submit" name ="add-user"value="Next">
+    Password:<br>
+    <input type="password" name="password"><br>
+
+    <input type="submit" name ="add-user"value="zapisz">
+
+<%--    <input type="submit" name ="add-user"value="Next">--%>
 </form>
 

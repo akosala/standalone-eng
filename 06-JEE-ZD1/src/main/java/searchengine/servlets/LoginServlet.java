@@ -17,11 +17,11 @@ public class LoginServlet extends  HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //req.login(req.getParameter("j_username"), req.getParameter("/hash-password"));
-        req.login(req.getParameter("j_username"), req.getParameter("j_password"));
+        //req.login(req.getParameter("j_username"), req.getParameter("j_password"));
         /*String hashedPassword = CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("j_password"));
         String login= req.getParameter("j_username");
         req.login(login, hashedPassword);*/
-/*
+
 
        try {
            req.login(req.getParameter("j_username"), req.getParameter("j_password"));
@@ -38,6 +38,6 @@ public class LoginServlet extends  HttpServlet{
             return;
         }
         resp.sendRedirect(req.getHeader("Referer"));
-*/
+
 
 }}

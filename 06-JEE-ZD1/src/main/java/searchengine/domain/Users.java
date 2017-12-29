@@ -1,16 +1,20 @@
 package searchengine.domain;
 
 
-import org.wildfly.security.authz.Roles;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
 
 import javax.persistence.*;
 @Entity
-
+@Table (name = "users")
 @NamedQueries({
         @NamedQuery(name = "getUserByLogin", query = "from Users u where u.login=:login"),
         @NamedQuery(name = "getAll", query = "from Users")
 })
-class Users   {
+public class Users extends User {
     public Users() {
     }
 
@@ -64,4 +68,39 @@ class Users   {
     public void setId(int id) {
         this.id = id;
     }
+
+
+    public SessionFactory getSf(String name,String surname,String login,String password ) {
+
+
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        Session s = sf.openSession();
+
+        Transaction tx = s.beginTransaction();
+        Users o= new Users();
+        o.setName(name);
+        o.setSurname(surname);
+        o.setLogin( login);
+        o.setPassword(password);
+        s.save(o);
+        tx.commit();
+        s.close();
+       return sf;
+
+    }
+
+
+
+
+
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", login='" + login + '\'' +
+                ", password=" + password +
+                '}';
+    }
+
 }

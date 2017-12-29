@@ -1,8 +1,8 @@
 package searchengine.servlets;
 
+import org.jboss.crypto.CryptoUtil;
 import searchengine.dao.UsersRepositoryDao;
-import searchengine.domain.Gender;
-import searchengine.domain.User;
+import searchengine.domain.Users;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-import static searchengine.domain.Gender.MEN;
 
 @WebServlet("/AddUserInSteps")
 public class AddNewUserByServletInSteps extends HttpServlet {
@@ -25,15 +23,16 @@ public class AddNewUserByServletInSteps extends HttpServlet {
     @Override
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addUser(req,resp);
+        addUser(req, resp);
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addUser(req,resp);
+        addUser(req, resp);
     }
 
     private void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = new User();
+        Users user = new Users();
         if (req.getParameter("step").equals("1")) {
             req.getSession().setAttribute("id", req.getParameter("id"));
 
@@ -41,31 +40,29 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/add-user2.jsp");
             requestDispatcher.forward(req, resp);
-           return;
+            return;
         } else if (req.getParameter("step").equals("2")) {
             req.getSession().setAttribute("name", req.getParameter("name"));
 
             req.getSession().setAttribute("surname", req.getParameter("surname"));
 
-            req.getSession().setAttribute("age", req.getParameter("age"));
+            req.getSession().setAttribute("password", CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("password")));
 
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/add-user3.jsp");
-            requestDispatcher.forward(req, resp);
-            return;
-        } else if (req.getParameter("step").equals("3")) {
-
-    req.getSession().setAttribute("gender", req.getParameter("gender"));
             user.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
             user.setLogin((String) req.getSession().getAttribute("login"));
             user.setName((String) req.getSession().getAttribute("name"));
+
             user.setSurname((String) req.getSession().getAttribute("surname"));
-            user.setAge(Integer.parseInt((String) req.getSession().getAttribute("age")));
-           // user.setGender((Gender) req.getSession().getAttribute(String.valueOf(MEN)));
-          if(MEN.equals(req.getParameter("gender"))){
-                user.setGender((Gender) req.getSession().getAttribute(String.valueOf(MEN)));
-            }else {
-                user.setGender((Gender) req.getSession().getAttribute(String.valueOf(Gender.WOMEN)));
-            }
+
+
+            user.setPassword((String) req.getSession().getAttribute("password"));
+
+
+            String login = String.valueOf(req.getSession().getAttribute("login"));
+            String name = String.valueOf(req.getSession().getAttribute("name"));
+            String surname = String.valueOf(req.getSession().getAttribute("surname"));
+            String password = String.valueOf(req.getSession().getAttribute("password"));
+            user.getSf(name, surname, login, password);
             dao.addUser(user);
             req.setAttribute("okMessage", "User with ID " + user.getId() + " has been added.");
 
@@ -76,12 +73,13 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 //return;
 
             //req.setAttribute();
-           // req.getSession().invalidate();
+            // req.getSession().invalidate();
 
         }
 
 
-    }}
+    }
+}
 /*
 
  @Override

@@ -2,12 +2,11 @@ package searchengine.dao;
 
 import searchengine.Interceptor.AddUserInterceptor;
 import searchengine.domain.User;
+import searchengine.domain.Users;
 
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +28,7 @@ public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositor
 
     @Override
     @Interceptors(AddUserInterceptor.class)
-    public User addUser(User user) {
+    public User addUser(Users user) {
         UsersRepository.getRepository().add(user);
         return null;
     }

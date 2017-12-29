@@ -4,6 +4,7 @@ import searchengine.dao.UsersRepositoryDao;
 import searchengine.dao.UsersRepositoryDaoBean;
 import searchengine.domain.Gender;
 import searchengine.domain.User;
+import searchengine.domain.Users;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -92,7 +93,7 @@ public class AddNewUserByServlet extends HttpServlet {
         user.setAge(age);
         user.setLogin(login);
         user.setGender(gender);
-        dao.addUser(user);
+        dao.addUser((Users) user);
 
     }
 
