@@ -6,13 +6,15 @@ import searchengine.domain.User;
 import searchengine.domain.Users;
 import searchengine.servlets.AddNewUserByServletInSteps;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 @Stateless
-public class UsersRepository {
+@Local
+public class UsersRepository implements UserRepositoryN{
     private static List<User> usersRepository = new ArrayList<>();
 //Users users;
     public static List<User> getRepository() {
@@ -52,7 +54,7 @@ public class UsersRepository {
                 .getResultList();
     }
     private static void fillRepositoryWithDefaults() {
-        User user1 = new User();
+       /* User user1 = new User();
         user1.setId(1);
         user1.setName("Jan");
         user1.setSurname("Kowalski");
@@ -86,6 +88,6 @@ public class UsersRepository {
         user4.setLogin("Krolik");
         user4.setAge(40);
         user4.setGender(Gender.MEN);
-        usersRepository.add(user4);
+        usersRepository.add(user4);*/
     }
 }

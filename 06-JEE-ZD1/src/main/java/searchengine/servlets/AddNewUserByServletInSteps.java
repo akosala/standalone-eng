@@ -3,15 +3,13 @@ package searchengine.servlets;
 
 
 import org.jboss.crypto.CryptoUtil;
-import searchengine.dao.UsersRepository;
+import searchengine.dao.UserRepositoryN;
 import searchengine.dao.UsersRepositoryDao;
-import searchengine.dao.UsersRepositoryDb;
 import searchengine.domain.Users;
 
 import javax.ejb.EJB;
 
-import javax.persistence.*;
-
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,10 +25,12 @@ import java.io.IOException;
 public class AddNewUserByServletInSteps extends HttpServlet {
  //  @PersistenceContext(name = "pUnit")
    // EntityManager entityManager;
+
     @EJB
     UsersRepositoryDao dao;
     Users users = new Users();
-
+    @Inject
+    UserRepositoryN userRepositoryN;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addUser1(req, resp);
@@ -43,7 +43,7 @@ public class AddNewUserByServletInSteps extends HttpServlet {
    // @Stateless
     @Transactional
     public void addUser1(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      //  Users user = new Users();
+
         if (req.getParameter("step").equals("1")) {
             req.getSession().setAttribute("id", req.getParameter("id"));
 
@@ -70,8 +70,15 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             String surname = String.valueOf(req.getSession().getAttribute("surname"));
             String password =CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("password"));
                     //String.valueOf(req.getSession().getAttribute("password"));
-         UsersRepository usersRepository= new UsersRepository();
-                 usersRepository.addUser(users);
+         //UsersRepository usersRepository= new UsersRepository();
+         //
+            //
+            //       usersRepository.addUser(users);
+
+            userRepositoryN.addUser(users);
+
+
+
            /* users.setSurname(surname);
             users.setLogin(login);
             users.setPassword(password);*/

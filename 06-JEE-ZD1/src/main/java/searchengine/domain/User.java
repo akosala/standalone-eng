@@ -10,7 +10,7 @@ import java.util.List;
         @NamedQuery(name = "getAll", query = "from User")
 })*/
 public class User implements Serializable {
-
+/*
     public User() {
     }
 
@@ -102,5 +102,5 @@ public class User implements Serializable {
                 ", gender=" + gender +
                 ", phones=" + phones +
                 '}';
-    }
+    }*/
 }
