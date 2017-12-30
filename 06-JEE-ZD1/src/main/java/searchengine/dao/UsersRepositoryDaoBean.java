@@ -6,7 +6,6 @@ import searchengine.domain.Users;
 
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +17,8 @@ import java.util.Map;
 public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositoryDaoRemote {
 
     private static Map<Integer, Integer> mapStatistic = new HashMap<>();
-    @PersistenceContext(name = "pUnit")
-    EntityManager entityManager;
+   // @PersistenceContext(name = "pUnit")
+   // EntityManager entityManager;
 
     @Override
 
@@ -29,17 +28,17 @@ public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositor
 
     @Override
     @Interceptors(AddUserInterceptor.class)
-    public User addUser(Users user) {
+    public Users addUser(Users user) {
         UsersRepository.getRepository().add(user);
         return null;
     }
 
     @Override
-    public User getUserById(int id) {
+    public Users getUserById(int id) {
         List<User> userList = UsersRepository.getRepository();
         for (User user : userList) {
             if (user.getId() == id) {
-                return user;
+                return (Users) user;
             }
         }
         return null;
@@ -47,12 +46,12 @@ public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositor
 
 
     @Override
-    public User getUserByLogin(String login) {
+    public Users getUserByLogin(String login) {
 
         List<User> userList = UsersRepository.getRepository();
         for (User user : userList) {
             if (user.getLogin().equals(login)) {
-                return user;
+                return (Users) user;
             }
         }
         return null;

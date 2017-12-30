@@ -9,11 +9,11 @@ import java.util.List;
 
 @Local
 public interface UsersRepositoryDao {
-    public User addUser(Users user);
+    public Users addUser(Users users);
 
-    public User getUserById(int id);
+    public Users getUserById(int id);
 
-    public User getUserByLogin(String login);
+    public Users getUserByLogin(String login);
 
     public List<User> userList();
 

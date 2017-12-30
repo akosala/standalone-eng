@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.jboss.crypto.CryptoUtil;
 import searchengine.dao.UsersRepositoryDao;
+import searchengine.dao.UsersRepositoryDb;
 import searchengine.domain.Users;
 
 import javax.ejb.EJB;
@@ -31,11 +32,11 @@ import java.util.Map;
 
 @WebServlet("/AddUserInSteps")
 public class AddNewUserByServletInSteps extends HttpServlet {
-    @PersistenceContext(name = "pUnit")
+   /* @PersistenceContext(name = "pUnit")*/
     EntityManager entityManager;
     @EJB
     UsersRepositoryDao dao;
-
+    Users users = new Users();
 
     @Override
 
@@ -66,38 +67,39 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
             req.getSession().setAttribute("password", CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("password")));
 
-            user.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
-            user.setLogin((String) req.getSession().getAttribute("login"));
-            user.setName((String) req.getSession().getAttribute("name"));
-            user.setSurname((String) req.getSession().getAttribute("surname"));
-            user.setPassword((String) req.getSession().getAttribute("password"));
-
+            users.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
+            users.setLogin((String) req.getSession().getAttribute("login"));
+            users.setName((String) req.getSession().getAttribute("name"));
+            users.setSurname((String) req.getSession().getAttribute("surname"));
+            users.setPassword((String) req.getSession().getAttribute("password"));
             String login = String.valueOf(req.getSession().getAttribute("login"));
             String name = String.valueOf(req.getSession().getAttribute("name"));
             String surname = String.valueOf(req.getSession().getAttribute("surname"));
-            String password = String.valueOf(req.getSession().getAttribute("password"));
+            String password =CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("password"));
+                    //String.valueOf(req.getSession().getAttribute("password"));
+            users.setName(name);
+            users.setSurname(surname);
+            users.setLogin(login);
+            users.setPassword(password);
+            entityManager.persist(users);
 
             //enti
 
 
             //getSf(name, surname, login, password);
-           // dao.addUser(user);
+            dao.addUser(users);
             req.setAttribute("okMessage", "User with ID " + user.getId() + " has been added.");
 
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index1.jsp");
             requestDispatcher.forward(req, resp);
 
 
-            entityManager.getTransaction().begin();
+            //entityManager.getTransaction().begin();
 
-            Users users = new Users();
 
-            users.setName(name);
-            users.setSurname(surname);
-            users.setLogin(login);
-            users.setPassword(password);
-            entityManager.persist(users);
-            entityManager.getTransaction().commit();
+
+
+            //entityManager.getTransaction().commit();
 
 //return;
 

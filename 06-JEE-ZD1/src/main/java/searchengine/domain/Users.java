@@ -18,12 +18,12 @@ import java.io.Serializable;
         @NamedQuery(name = "getAll", query = "from Users")
        // @NamedQuery(name = "insertUser", query = "insert into Users  where u.login=:login"),
 })
-public class Users  extends User implements Serializable {
+public class Users extends User implements Serializable {
     public Users() {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, unique = true)
     private int id;
 
