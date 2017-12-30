@@ -3,6 +3,7 @@ package searchengine.servlets;
 
 
 import org.jboss.crypto.CryptoUtil;
+import searchengine.dao.UsersRepository;
 import searchengine.dao.UsersRepositoryDao;
 import searchengine.dao.UsersRepositoryDb;
 import searchengine.domain.Users;
@@ -25,24 +26,24 @@ import java.io.IOException;
 @WebServlet("/AddUserInSteps")
 public class AddNewUserByServletInSteps extends HttpServlet {
    @PersistenceContext(name = "pUnit")
-    //EntityManager entityManager;
+    EntityManager entityManager;
     @EJB
     UsersRepositoryDao dao;
     Users users = new Users();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addUser(req, resp);
+        addUser1(req, resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        addUser(req, resp);
+        addUser1(req, resp);
     }
    // @Stateless
     @Transactional
-    private void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Users user = new Users();
+    public void addUser1(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      //  Users user = new Users();
         if (req.getParameter("step").equals("1")) {
             req.getSession().setAttribute("id", req.getParameter("id"));
 
@@ -58,20 +59,22 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
             req.getSession().setAttribute("password", CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("password")));
 
-            ausers.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
+            users.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
             users.setLogin((String) req.getSession().getAttribute("login"));
             users.setName((String) req.getSession().getAttribute("name"));
             users.setSurname((String) req.getSession().getAttribute("surname"));
             users.setPassword((String) req.getSession().getAttribute("password"));
+
             String login = String.valueOf(req.getSession().getAttribute("login"));
             String name = String.valueOf(req.getSession().getAttribute("name"));
             String surname = String.valueOf(req.getSession().getAttribute("surname"));
             String password =CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("password"));
                     //String.valueOf(req.getSession().getAttribute("password"));
-            users.setName(name);
-            users.setSurname(surname);
+         UsersRepository usersRepository= new UsersRepository();
+                 usersRepository.addUser(users);
+           /* users.setSurname(surname);
             users.setLogin(login);
-            users.setPassword(password);
+            users.setPassword(password);*/
 
 
             //enti
@@ -79,7 +82,7 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
             //getSf(name, surname, login, password);
             dao.addUser(users);
-            req.setAttribute("okMessage", "User with ID " + user.getId() + " has been added.");
+            req.setAttribute("okMessage", "User with ID " + users.getId() + " has been added.");
 
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index1.jsp");
             requestDispatcher.forward(req, resp);

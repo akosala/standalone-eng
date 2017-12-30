@@ -18,7 +18,7 @@ import java.io.Serializable;
         @NamedQuery(name = "getAll", query = "from Users")
         // @NamedQuery(name = "insertUser", query = "insert into Users  where u.login=:login"),
 })
-public class Users  implements Serializable {
+public class Users extends User implements Serializable {
     public Users() {
     }
 

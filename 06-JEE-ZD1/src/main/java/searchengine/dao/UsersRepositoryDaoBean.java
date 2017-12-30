@@ -6,7 +6,6 @@ import searchengine.domain.Users;
 
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
-import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.Map;
 @Stateless
 
 public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositoryDaoRemote {
+
 
     private static Map<Integer, Integer> mapStatistic = new HashMap<>();
    // @PersistenceContext(name = "pUnit")

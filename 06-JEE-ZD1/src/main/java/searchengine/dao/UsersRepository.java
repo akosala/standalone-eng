@@ -3,13 +3,18 @@ package searchengine.dao;
 
 import searchengine.domain.Gender;
 import searchengine.domain.User;
+import searchengine.domain.Users;
+import searchengine.servlets.AddNewUserByServletInSteps;
 
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
-
+@Stateless
 public class UsersRepository {
     private static List<User> usersRepository = new ArrayList<>();
-
+//Users users;
     public static List<User> getRepository() {
         if (usersRepository.size() == 0) {
             fillRepositoryWithDefaults();
@@ -17,6 +22,35 @@ public class UsersRepository {
         return usersRepository;
     }
 
+    @PersistenceContext(unitName = "pUnit")
+    private EntityManager entityManager;
+    public boolean addUser(Users users) {
+
+        users.setLogin("4");
+        users.setName("2");
+        users.setSurname("3");
+        users.setPassword("4");
+        entityManager.persist(users);
+       // System.out.println("User " + users + " added");
+
+
+        return true;
+    }
+
+    public Users getUserById(int id) {
+        return entityManager.find(Users.class, id);
+    }
+
+    public Users getUserByLogin(String login) {
+        return (Users) entityManager.createNamedQuery("getUserByLogin")
+                .setParameter("login", login)
+                .getSingleResult();
+    }
+
+    public List<Users> getUsersList() {
+        return entityManager.createNamedQuery("getAll")
+                .getResultList();
+    }
     private static void fillRepositoryWithDefaults() {
         User user1 = new User();
         user1.setId(1);
