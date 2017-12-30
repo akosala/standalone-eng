@@ -10,20 +10,32 @@ import searchengine.dao.UsersRepositoryDao;
 import searchengine.domain.Users;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.metamodel.Metamodel;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 
 @WebServlet("/AddUserInSteps")
 public class AddNewUserByServletInSteps extends HttpServlet {
-
+    @PersistenceContext(name = "pUnit")
+    EntityManager entityManager;
     @EJB
     UsersRepositoryDao dao;
+
 
     @Override
 
@@ -35,7 +47,8 @@ public class AddNewUserByServletInSteps extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addUser(req, resp);
     }
-
+   // @Stateless
+    @Transactional
     private void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Users user = new Users();
         if (req.getParameter("step").equals("1")) {
@@ -75,6 +88,17 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             requestDispatcher.forward(req, resp);
 
 
+            entityManager.getTransaction().begin();
+
+            Users users = new Users();
+
+            users.setName(name);
+            users.setSurname(surname);
+            users.setLogin(login);
+            users.setPassword(password);
+            entityManager.persist(users);
+            entityManager.getTransaction().commit();
+
 //return;
 
             //req.setAttribute();
@@ -84,7 +108,8 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
 
     }
-    public SessionFactory getSf(String name,String surname,String login,String password ) {
+
+    /*public SessionFactory getSf(String name,String surname,String login,String password ) {
 
         SessionFactory sf = new Configuration().configure().buildSessionFactory();
         try (Session s = sf.openSession()) {
@@ -101,7 +126,7 @@ public class AddNewUserByServletInSteps extends HttpServlet {
         }
         return sf;
 
-    }
+    }*/
 
 }
 /*

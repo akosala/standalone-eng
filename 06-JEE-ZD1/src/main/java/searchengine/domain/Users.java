@@ -12,9 +12,11 @@ import java.io.Serializable;
 
 @Entity
 @Table (name = "users")
+@DiscriminatorValue ("users")
 @NamedQueries({
         @NamedQuery(name = "getUserByLogin", query = "from Users u where u.login=:login"),
         @NamedQuery(name = "getAll", query = "from Users")
+       // @NamedQuery(name = "insertUser", query = "insert into Users  where u.login=:login"),
 })
 public class Users  extends User implements Serializable {
     public Users() {
