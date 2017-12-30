@@ -4,6 +4,7 @@ import searchengine.domain.User;
 import searchengine.domain.Users;
 
 import javax.ejb.Local;
+
 import java.util.List;
 
 @Local

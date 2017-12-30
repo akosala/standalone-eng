@@ -1,5 +1,10 @@
 package searchengine.servlets;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.jboss.crypto.CryptoUtil;
 import searchengine.dao.UsersRepositoryDao;
 import searchengine.domain.Users;
@@ -51,19 +56,19 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             user.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
             user.setLogin((String) req.getSession().getAttribute("login"));
             user.setName((String) req.getSession().getAttribute("name"));
-
             user.setSurname((String) req.getSession().getAttribute("surname"));
-
-
             user.setPassword((String) req.getSession().getAttribute("password"));
-
 
             String login = String.valueOf(req.getSession().getAttribute("login"));
             String name = String.valueOf(req.getSession().getAttribute("name"));
             String surname = String.valueOf(req.getSession().getAttribute("surname"));
             String password = String.valueOf(req.getSession().getAttribute("password"));
-            user.getSf(name, surname, login, password);
-            dao.addUser(user);
+
+            //enti
+
+
+            //getSf(name, surname, login, password);
+           // dao.addUser(user);
             req.setAttribute("okMessage", "User with ID " + user.getId() + " has been added.");
 
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index1.jsp");
@@ -79,6 +84,25 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
 
     }
+    public SessionFactory getSf(String name,String surname,String login,String password ) {
+
+        SessionFactory sf = new Configuration().configure().buildSessionFactory();
+        try (Session s = sf.openSession()) {
+
+            Transaction tx = s.beginTransaction();
+            Users o = new Users();
+            o.setName(name);
+            o.setSurname(surname);
+            o.setLogin(login);
+            o.setPassword(password);
+            s.save(o);
+            tx.commit();
+            s.close();
+        }
+        return sf;
+
+    }
+
 }
 /*
 

@@ -1,6 +1,7 @@
 package searchengine.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 //@Entity
@@ -8,7 +9,7 @@ import java.util.List;
         @NamedQuery(name = "getUserByLogin", query = "from User u where u.login=:login"),
         @NamedQuery(name = "getAll", query = "from User")
 })*/
-public class User {
+public class User implements Serializable {
 
     public User() {
     }
