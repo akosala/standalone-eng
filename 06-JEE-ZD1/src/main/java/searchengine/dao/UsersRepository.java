@@ -26,10 +26,10 @@ public class UsersRepository {
     private EntityManager entityManager;
     public boolean addUser(Users users) {
 
-        users.setLogin("4");
-        users.setName("2");
-        users.setSurname("3");
-        users.setPassword("4");
+        users.setLogin(users.getLogin());
+        users.setName(users.getName());
+        users.setSurname(users.getSurname());
+        users.setPassword(users.getPassword());
         entityManager.persist(users);
        // System.out.println("User " + users + " added");
 

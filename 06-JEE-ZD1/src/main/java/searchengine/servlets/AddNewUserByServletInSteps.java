@@ -25,8 +25,8 @@ import java.io.IOException;
 
 @WebServlet("/AddUserInSteps")
 public class AddNewUserByServletInSteps extends HttpServlet {
-   @PersistenceContext(name = "pUnit")
-    EntityManager entityManager;
+ //  @PersistenceContext(name = "pUnit")
+   // EntityManager entityManager;
     @EJB
     UsersRepositoryDao dao;
     Users users = new Users();

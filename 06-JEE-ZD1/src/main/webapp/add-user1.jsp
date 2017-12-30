@@ -12,7 +12,7 @@
     ID:<br>
     <input type="id" name="id"><br>
     Login:<br>
-    <input type="Login" name="Login"><br>
+    <input type="Login" name="login"><br>
     <input type="submit" name ="add-user"value="Next">
 </form>
 

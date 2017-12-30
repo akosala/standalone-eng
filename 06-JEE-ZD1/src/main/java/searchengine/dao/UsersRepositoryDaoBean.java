@@ -1,20 +1,64 @@
 package searchengine.dao;
 
 import searchengine.Interceptor.AddUserInterceptor;
+/*import searchengine.domain.User;*/
 import searchengine.domain.User;
 import searchengine.domain.Users;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Stateless
 
 public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositoryDaoRemote {
 
+    @EJB
+    private UsersRepository usersRepository;
+
+    @Override
+    @Interceptors({ AddUserInterceptor.class})
+    public boolean addUser(Users user) {
+        usersRepository.addUser(user);
+        return true;
+    }
+
+    @Override
+    public Users getUserById(int id) {
+        return usersRepository.getUserById(id);
+    }
+
+    @Override
+    public Users getUserByLogin(String login) {
+        return usersRepository.getUserByLogin(login);
+    }
+
+    @Override
+    public List<User> userList() {
+        return null;
+    }
+
+
+    public List<Users> getUsersList() {
+        return usersRepository.getUsersList();
+    }
+
+
+    public List<String> getUsersNames() {
+        List<String> usersNames = new ArrayList<>();
+        for (Users user : getUsersList()) {
+            usersNames.add(user.getName());
+        }
+        return usersNames;
+    }
+
+    @Override
+    public List<String> getUserNames() {
+        return null;
+    }
+/*
 
     private static Map<Integer, Integer> mapStatistic = new HashMap<>();
    // @PersistenceContext(name = "pUnit")
@@ -38,7 +82,7 @@ public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositor
         List<User> userList = UsersRepository.getRepository();
         for (User user : userList) {
             if (user.getId() == id) {
-                return (Users) user;
+                return user;
             }
         }
         return null;
@@ -48,7 +92,7 @@ public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositor
     @Override
     public Users getUserByLogin(String login) {
 
-        List<User> userList = UsersRepository.getRepository();
+        List<Users> userList = UsersRepository.getRepository();
         for (User user : userList) {
             if (user.getLogin().equals(login)) {
                 return (Users) user;
@@ -90,5 +134,5 @@ public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositor
         }
 
         return userList;
-    }
+    }*/
 }

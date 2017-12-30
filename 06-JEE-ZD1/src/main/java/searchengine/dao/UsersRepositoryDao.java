@@ -9,7 +9,7 @@ import java.util.List;
 
 @Local
 public interface UsersRepositoryDao {
-    public Users addUser(Users users);
+    public boolean addUser(Users users);
 
     public Users getUserById(int id);
 
