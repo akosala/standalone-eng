@@ -13,9 +13,11 @@ public class UsersRepositoryDb {
     @PersistenceContext(unitName = "pUnit")
         private EntityManager entityManager;
 
-        public boolean addUser1(Users users) {
+        public boolean addUser(Users users) {
             entityManager.persist(users);
             System.out.println("User " + users + " added");
+
+
             return true;
         }
 

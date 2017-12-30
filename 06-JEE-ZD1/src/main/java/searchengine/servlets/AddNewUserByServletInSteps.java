@@ -1,23 +1,16 @@
 package searchengine.servlets;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.internal.SessionFactoryImpl;
+
+
 import org.jboss.crypto.CryptoUtil;
 import searchengine.dao.UsersRepositoryDao;
 import searchengine.dao.UsersRepositoryDb;
 import searchengine.domain.Users;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.metamodel.Metamodel;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,20 +19,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+
 
 
 @WebServlet("/AddUserInSteps")
 public class AddNewUserByServletInSteps extends HttpServlet {
-   /* @PersistenceContext(name = "pUnit")*/
-    EntityManager entityManager;
+   @PersistenceContext(name = "pUnit")
+    //EntityManager entityManager;
     @EJB
     UsersRepositoryDao dao;
     Users users = new Users();
 
     @Override
-
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addUser(req, resp);
     }
@@ -67,7 +58,7 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
             req.getSession().setAttribute("password", CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("password")));
 
-            users.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
+            ausers.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
             users.setLogin((String) req.getSession().getAttribute("login"));
             users.setName((String) req.getSession().getAttribute("name"));
             users.setSurname((String) req.getSession().getAttribute("surname"));
@@ -81,7 +72,7 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             users.setSurname(surname);
             users.setLogin(login);
             users.setPassword(password);
-            entityManager.persist(users);
+
 
             //enti
 
