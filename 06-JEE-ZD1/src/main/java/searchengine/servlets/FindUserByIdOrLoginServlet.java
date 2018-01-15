@@ -29,17 +29,17 @@ public class FindUserByIdOrLoginServlet extends  HelloServlet  {
        // UsersRepositoryDaoBean. startStistic();
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter("id");
-        Users user = dao.getUserById(Integer.valueOf(id));
+        Users users = dao.getUserById(Integer.valueOf(id));
         //UsersRepositoryDaoBean.increamentUserStatistics(user.getId());
 
-        if(user==null){ resp.setStatus(HttpServletResponse.SC_NOT_FOUND);return;}
+        if(users==null){ resp.setStatus(HttpServletResponse.SC_NOT_FOUND);return;}
         resp.setContentType("text/html;charset=UTF-8");
         writer.println("<!DOCTYPE html>");
         writer.println("<html>");
         writer.println("<body>");
-        writer.println("Imie z bazy dla numeru :   " +id+"    "+ user.getName() + "   "+user.getSurname()+"  "+ user.getLogin()+"   "+ "  "+"   puls" +"<br/>");
+        writer.println("Imie z bazy dla numeru :   " +id+"    "+ users.getName() + "   "+users.getSurname()+"  "+ users.getLogin()+"   "+ "  "+"   puls" +"<br/>");
 //+max.puls(user.getAge(),user.getGender())
-        writer.println(user.getName()+"  "+user.getSurname() + "<br />");
+        writer.println(users.getName()+"  "+users.getSurname() + "<br />");
        /* writer.println("Statystyka dla usera: " +
               UsersRepositoryDaoBean.getHasMapStatis().get(user.getId()) + "<br />");*/
         writer.println("</body>");

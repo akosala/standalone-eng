@@ -1,42 +1,43 @@
 package searchengine.dao;
 
 
-import searchengine.domain.Gender;
-import searchengine.domain.User;
+import org.hibernate.SessionFactory;
 import searchengine.domain.Users;
-import searchengine.servlets.AddNewUserByServletInSteps;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
-@Stateless
-@Local
-public class UsersRepository implements UserRepositoryN{
-    private static List<User> usersRepository = new ArrayList<>();
-//Users users;
-    public static List<User> getRepository() {
-        if (usersRepository.size() == 0) {
-            fillRepositoryWithDefaults();
-        }
-        return usersRepository;
-    }
 
+@Stateless
+public class UsersRepository implements UserRepositoryN {
     @PersistenceContext(unitName = "pUnit")
-    private EntityManager entityManager;
+   private EntityManager entityManager;
+    private static SessionFactory factory;
+//    @EJB
+//    UsersRepository usersRepository;
+//    /*private static List<User> usersRepository = new ArrayList<>();
+////Users users;
+//    public static List<User> getRepository() {
+//        if (usersRepository.size() == 0) {
+//            fillRepositoryWithDefaults();
+//        }
+//        return usersRepository;
+//    }
+//*/
+
     public boolean addUser(Users users) {
 
-        users.setLogin(users.getLogin());
+       /* users.setLogin(users.getLogin());
         users.setName(users.getName());
         users.setSurname(users.getSurname());
-        users.setPassword(users.getPassword());
+        users.setPassword(users.getPassword());*/
         entityManager.persist(users);
+        return true;
        // System.out.println("User " + users + " added");
 
 
-        return true;
+
     }
 
     public Users getUserById(int id) {

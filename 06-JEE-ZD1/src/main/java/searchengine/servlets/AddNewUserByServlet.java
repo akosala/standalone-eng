@@ -86,14 +86,14 @@ public class AddNewUserByServlet extends HttpServlet {
     }
 
     public void addNewUser(String name, String surname, int age, int id, String login, Gender gender) {
-        Users user = new Users();
-        user.setName(name);
-        user.setSurname(surname);
-        user.setId(id);
+        Users users = new Users();
+        users.setName(name);
+        users.setSurname(surname);
+        users.setId(id);
         //user.setAge(age);
-        user.setLogin(login);
+        users.setLogin(login);
        // user.setGender(gender);
-        dao.addUser(user);
+        dao.addUser(users);
 
     }
 

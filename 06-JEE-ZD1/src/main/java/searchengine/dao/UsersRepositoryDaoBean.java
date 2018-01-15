@@ -12,16 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-
 public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositoryDaoRemote {
 
     @EJB
-    private UsersRepository usersRepository;
+    private UserRepositoryN usersRepository;
 
     @Override
-    @Interceptors({ AddUserInterceptor.class})
-    public boolean addUser(Users user) {
-        usersRepository.addUser(user);
+   // @Interceptors({ AddUserInterceptor.class})
+    public boolean addUser(Users users) {
+        usersRepository.addUser(users);
         return true;
     }
 

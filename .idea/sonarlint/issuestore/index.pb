@@ -369,3 +369,11 @@ g
 706-JEE-ZD1/src/main/java/searchengine/domain/Users.java,a/0/a07f798fa5c63ebcac203a7c63d96ef544f6af5d
 g
 706-JEE-ZD1/src/main/java/searchengine/domain/Roles.java,f/d/fdd02e22d43759c7979511b7cfdedbca0ead0e20
+p
+@06-JEE-ZD1/src/main/java/searchengine/dao/UsersRepositoryDb.java,a/d/ad31882781045f539c4d8ce4eed02e3bb50dc63b
+n
+>06-JEE-ZD1/src/main/java/searchengine/dao/UserRepositoryN.java,b/9/b91e976600000af08a077b2774cdcf4b9b012199
+z
+Jjjdz4-materialy-wildfly/helloexample/.idea/artifacts/hello_example_war.xml,4/0/4028e2d8075e7751226ada68edfea344c92a2ebc
+ƒ
+Sjjdz4-materialy-wildfly/helloexample/.idea/artifacts/hello_example_war_exploded.xml,a/b/ab1ce27d56dab172433a58705c27b2f2dcd9b29b
