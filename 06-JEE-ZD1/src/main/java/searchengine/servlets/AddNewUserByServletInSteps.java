@@ -3,6 +3,8 @@ package searchengine.servlets;
 
 
 import org.jboss.crypto.CryptoUtil;
+import searchengine.dao.RolesReposytory;
+import searchengine.domain.Roles;
 import searchengine.dao.UsersRepository;
 import searchengine.dao.UsersRepositoryDao;
 import searchengine.domain.Users;
@@ -22,15 +24,74 @@ import java.io.IOException;
 
 
 @WebServlet("/AddUserInSteps")
-public class AddNewUserByServletInSteps extends HttpServlet {
- //  @PersistenceContext(name = "pUnit")
+public class AddNewUserByServletInSteps extends HttpServlet  {
+
+
+    @EJB
+    UsersRepositoryDao dao;
+    RolesReposytory rolesReposytory;
+    //Roles role;
+    //Roles role = new Roles();
+
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addUser(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        addUser(req, resp);
+    }
+
+    public void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getParameter("step").equals("1")) {
+            //req.getSession().setAttribute("id", req.getParameter("id"));
+
+            req.getSession().setAttribute("login", req.getParameter("login"));
+
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/add-user2.jsp");
+            requestDispatcher.forward(req, resp);
+            return;
+        } else if (req.getParameter("step").equals("2")) {
+            Users user = new Users();
+            Roles role = new Roles();
+            // user.setId(Integer.parseInt((String) req.getSession().getAttribute("id")));
+            user.setLogin((String) req.getSession().getAttribute("login"));
+            user.setName((String) req.getSession().getAttribute("name"));
+            user.setSurname((String) req.getSession().getAttribute("surname"));
+String login1 = req.getSession().getAttribute("login").toString();
+            String password =CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("password"));
+            user.setPassword(password);
+            role.setUser_login(login1);
+            role.setUser_role("admin");
+            role.setRole_group("admin");
+
+            role.setUser(user);
+            user.setRole(role);
+            dao.addUser(user);
+            //rolesReposytory.addRole(role);
+            req.setAttribute("okMessage", "User with ID " + user.getId() + " has been added.");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index1.jsp");
+            requestDispatcher.forward(req, resp);
+        }
+
+    }
+
+
+
+
+ /*//  @PersistenceContext(name = "pUnit")
    // EntityManager entityManager;
 
     @EJB
     UsersRepositoryDao dao;
+   *//* @EJB
+    UsersRepository usersRepository;*//*
     Users users = new Users();
- /* @Inject
-    UserRepositoryN userRepositoryN;*/
+ *//* @Inject
+    UserRepositoryN userRepositoryN;*//*
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         addUser(req, resp);
@@ -71,8 +132,8 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             String password =CryptoUtil.createPasswordHash("MD5", "hex", null, null, req.getParameter("password"));
                     //String.valueOf(req.getSession().getAttribute("password"));
 
-            UsersRepository usersRepository= new UsersRepository();
-           usersRepository.addUser(users);
+
+           dao.addUser(users);
         //
             //
             //       usersRepository.addUser(users);
@@ -81,9 +142,9 @@ public class AddNewUserByServletInSteps extends HttpServlet {
 
 
 
-           /* users.setSurname(surname);
+           *//* users.setSurname(surname);
             users.setLogin(login);
-            users.setPassword(password);*/
+            users.setPassword(password);*//*
 
 
             //enti
@@ -110,9 +171,8 @@ public class AddNewUserByServletInSteps extends HttpServlet {
             // req.getSession().invalidate();
 
         }
+*/
 
-
-    }
 
     /*public SessionFactory getSf(String name,String surname,String login,String password ) {
 

@@ -5,14 +5,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.wildfly.security.authz.Roles;
+import searchengine.domain.Roles;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-//@Table (name = "users")
-@DiscriminatorValue ("users")
+@Table (name = "users")
+//@DiscriminatorValue ("users")
 @NamedQueries(value = {
         @NamedQuery(name = "getUserByLogin", query = "from Users u where u.login=:login"),
         @NamedQuery(name = "getAll", query = "from Users")
@@ -27,11 +27,24 @@ public class Users  implements Serializable {
     @Column(nullable = false, unique = true)
     private int id;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "surname")
     private String surname;
-    private String login;
+/*@Column(name = "login")
+    private String login;*/
+
+   @Column(name = "password")
     private String password;
 
+
+    @Column(name = "login")
+    private String login;
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "user")
+    private Roles role;
 
     public String getName() {
         return name;
@@ -89,4 +102,12 @@ public class Users  implements Serializable {
                 '}';
     }
 
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
 }

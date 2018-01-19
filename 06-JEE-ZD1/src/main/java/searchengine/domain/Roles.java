@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 
 @Entity
-@Table 
-class Roles  {
+@Table (name="roles")
+public class Roles  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,12 @@ class Roles  {
     @Column(name = "role_group")
     private String role_group;
 
+    @Column(name = "user_login")
+    private String user_login;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;
 
-    @OneToOne
-    @JoinColumn(name = "login")
-    private Users user_login;
 
     public Long getId() {
         return id;
@@ -50,12 +52,21 @@ class Roles  {
         this.role_group = roleGroup;
     }
 
-    public Users getUser_login() {
+    public String getUser_login() {
         return user_login;
     }
 
-    public void setUser_login(Users user) {
-        this.user_login = user;
+    public void setUser_login(String user_login) {
+        this.user_login = user_login;
+    }
+
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 }
 

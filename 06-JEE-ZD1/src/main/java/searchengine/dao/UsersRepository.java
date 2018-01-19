@@ -1,7 +1,10 @@
 package searchengine.dao;
 
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.hibernate.SessionFactory;
+import searchengine.domain.Roles;
+import searchengine.domain.User;
 import searchengine.domain.Users;
 
 import javax.ejb.Stateless;
@@ -10,9 +13,9 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
-public class UsersRepository implements UserRepositoryN {
+public class UsersRepository implements UserRepositoryN,RolesReposytory {
     @PersistenceContext(unitName = "pUnit")
-   private EntityManager entityManager;
+    public EntityManager entityManager;
     private static SessionFactory factory;
 //    @EJB
 //    UsersRepository usersRepository;
@@ -33,6 +36,8 @@ public class UsersRepository implements UserRepositoryN {
         users.setSurname(users.getSurname());
         users.setPassword(users.getPassword());*/
         entityManager.persist(users);
+
+
         return true;
        // System.out.println("User " + users + " added");
 
@@ -90,5 +95,26 @@ public class UsersRepository implements UserRepositoryN {
         user4.setAge(40);
         user4.setGender(Gender.MEN);
         usersRepository.add(user4);*/
+    }
+
+    @Override
+    public boolean addRole(Roles roles) {
+        entityManager.persist(roles);
+        return true;
+    }
+
+    @Override
+    public Roles getUser_role(String user_role) {
+        return null;
+    }
+
+    @Override
+    public Roles getRole_goup(String role_group) {
+        return null;
+    }
+
+    @Override
+    public Roles getUser_login(String user_login) {
+        return null;
     }
 }

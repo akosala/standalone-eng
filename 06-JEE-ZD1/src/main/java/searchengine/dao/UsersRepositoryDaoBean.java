@@ -2,6 +2,7 @@ package searchengine.dao;
 
 import searchengine.Interceptor.AddUserInterceptor;
 /*import searchengine.domain.User;*/
+import searchengine.domain.Roles;
 import searchengine.domain.User;
 import searchengine.domain.Users;
 
@@ -12,10 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositoryDaoRemote {
+public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositoryDaoRemote,RolesReposytory {
 
     @EJB
     private UserRepositoryN usersRepository;
+    private RolesReposytory rolesReposytory;
 
     @Override
    // @Interceptors({ AddUserInterceptor.class})
@@ -23,6 +25,7 @@ public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositor
         usersRepository.addUser(users);
         return true;
     }
+
 
     @Override
     public Users getUserById(int id) {
@@ -55,6 +58,27 @@ public class UsersRepositoryDaoBean implements UsersRepositoryDao,UsersRepositor
 
     @Override
     public List<String> getUserNames() {
+        return null;
+    }
+
+    @Override
+    public boolean addRole(Roles roles) {
+        rolesReposytory.addRole(roles);
+        return true;
+    }
+
+    @Override
+    public Roles getUser_role(String user_role) {
+        return null;
+    }
+
+    @Override
+    public Roles getRole_goup(String role_group) {
+        return null;
+    }
+
+    @Override
+    public Roles getUser_login(String user_login) {
         return null;
     }
 /*
